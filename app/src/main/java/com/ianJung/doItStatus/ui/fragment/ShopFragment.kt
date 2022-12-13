@@ -17,6 +17,7 @@ import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.model.Memo
 import com.ianJung.doItStatus.singlebungle.Singleton
+import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 
 class ShopFragment : Fragment() {
@@ -35,17 +36,18 @@ class ShopFragment : Fragment() {
         binding = FragmentShopBinding.inflate(inflater,container,false)
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
-        binding!!.Gold.text = Singleton.gold.toString()
-        binding!!.Exp.text = Singleton.exp.toString()
+        //binding!!.Gold.text = Singleton.gold.toString()
+        //binding!!.Exp.text = Singleton.exp.toString()
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding!!.swipe.setOnRefreshListener {
-
-            binding!!.Gold.text = Singleton.gold.toString()
-            binding!!.Exp.text = Singleton.exp.toString()
+            binding!!.Gold.text = DoneDialog.gold.toString()
+            binding!!.Exp.text=DoneDialog.exp.toString()
+           // binding!!.Gold.text = Singleton.gold.toString()
+           // binding!!.Exp.text = Singleton.exp.toString()
             binding!!.swipe.isRefreshing=false
         }
 
