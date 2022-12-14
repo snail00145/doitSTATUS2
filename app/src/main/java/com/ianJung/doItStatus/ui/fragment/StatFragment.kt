@@ -9,12 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianJung.doItStatus.adapter.TodoAdapter
-import com.ianJung.doItStatus.databinding.FragmentDoneListBinding
+import com.ianJung.doItStatus.databinding.FragmentStatBinding
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 
-class DoneListFragment : Fragment() {
+class StatFragment : Fragment() {
 
-    private var binding : FragmentDoneListBinding? = null
+    lateinit var binding : FragmentStatBinding
     private val memoViewModel: MemoViewModel by viewModels() // 뷰모델 연결
     private val adapter : TodoAdapter by lazy { TodoAdapter(memoViewModel) } // 어댑터 선언
 
@@ -24,19 +24,10 @@ class DoneListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         // 뷰바인딩
-        binding = FragmentDoneListBinding.inflate(inflater,container,false)
+        binding = FragmentStatBinding.inflate(inflater,container,false)
 
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
-
-        // 아이템을 가로로 하나씩 보여주고 어댑터 연결
-        binding!!.doneRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        binding!!.doneRecyclerView.adapter = adapter
-
-        // 리스트 관찰하여 변경시 어댑터에 전달해줌
-        memoViewModel.readDoneData.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
-        })
 
         return binding!!.root
     }

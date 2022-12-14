@@ -6,18 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ianJung.doItStatus.ui.dialog.MyCustomDialog
-import com.ianJung.doItStatus.ui.dialog.MyCustomDialogInterface
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.model.Memo
 import com.ianJung.doItStatus.singlebungle.Singleton
-import com.ianJung.doItStatus.ui.dialog.DoneDialog
+import com.ianJung.doItStatus.ui.dialog.*
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 
 class ShopFragment : Fragment() {
@@ -34,10 +33,10 @@ class ShopFragment : Fragment() {
     ): View? {
         // 뷰바인딩
         binding = FragmentShopBinding.inflate(inflater,container,false)
+        binding!!.Gold.text = DoneDialog.gold.toString()
+        binding!!.Exp.text=DoneDialog.exp.toString()
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
-        //binding!!.Gold.text = Singleton.gold.toString()
-        //binding!!.Exp.text = Singleton.exp.toString()
         return binding!!.root
     }
 
@@ -46,10 +45,18 @@ class ShopFragment : Fragment() {
         binding!!.swipe.setOnRefreshListener {
             binding!!.Gold.text = DoneDialog.gold.toString()
             binding!!.Exp.text=DoneDialog.exp.toString()
-           // binding!!.Gold.text = Singleton.gold.toString()
-           // binding!!.Exp.text = Singleton.exp.toString()
             binding!!.swipe.isRefreshing=false
         }
+        binding!!.bubbleTea.setOnClickListener{
+            //val buyDialog = BuyDialog(activity!!, this)
+            Toast.makeText(context, "버블티클릭", Toast.LENGTH_SHORT).show()
+            }
+
+        binding!!.onigiri.setOnClickListener{
+            Toast.makeText(context, "오니기리클릭", Toast.LENGTH_SHORT).show()
+        }
+
+
 
     }
 

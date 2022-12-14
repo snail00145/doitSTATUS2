@@ -7,9 +7,9 @@
     android:id="@+id/swipe"
     tools:context=".ui.activity.MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/Gold"
@@ -18,7 +18,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="0"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageGold"
@@ -26,28 +29,55 @@
             android:layout_height="41dp"
             android:layout_marginTop="50dp"
             android:src="@drawable/money"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Gold"
             />
-<View
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    />
-    <TextView
-        android:id="@+id/Exp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="right"
-        android:text="0"
-        android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/imageExp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
-        android:text="EXP"
-        android:textSize="30sp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/Exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/imageExp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/imageExp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EXP"
+            android:textSize="30sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bubbleTea"
+            android:layout_width="200sp"
+            android:layout_height="200sp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bubbletea"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageGold" />
+
+        <ImageButton
+            android:id="@+id/onigiri"
+            android:layout_width="200sp"
+            android:layout_height="200sp"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/onigiri"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bubbleTea"
+            app:layout_constraintTop_toBottomOf="@+id/imageExp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

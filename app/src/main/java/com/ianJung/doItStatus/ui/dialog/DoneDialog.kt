@@ -14,7 +14,6 @@ import android.widget.Button
 import android.widget.Toast
 import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.adapter.TodoAdapter
-import com.ianJung.doItStatus.databinding.FragmentDoneListBinding
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentTodoListBinding
 import com.ianJung.doItStatus.databinding.TodoItemBinding
@@ -27,7 +26,6 @@ class DoneDialog(context : Context) : Dialog(context) {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var binding: TodoItemBinding
     private lateinit var binding2: FragmentShopBinding
-    lateinit var pref : SharedPreferences
     companion object{
         var gold = 0
         var exp = 0
@@ -43,8 +41,8 @@ class DoneDialog(context : Context) : Dialog(context) {
         setContentView(R.layout.layout_donedialog)
 
         val pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-        gold = pref.getInt("gold",-1)
-        exp = pref.getInt("exp", -1)
+        gold = pref.getInt("gold",0)
+        exp = pref.getInt("exp", 0)
         binding2.Gold.setText(gold.toString())
         binding2.Exp.setText(exp.toString())
 
@@ -57,8 +55,8 @@ class DoneDialog(context : Context) : Dialog(context) {
         okButton.setOnClickListener {
            // Singleton.gold = Singleton.gold?.plus(1)
             //Singleton.exp=Singleton.exp?.plus(1)
-            gold+=1
-            exp+=1
+            gold+=10
+            exp+=100
             binding2.Gold.setText(gold.toString())
             binding2.Exp.setText(exp.toString())
             Log.d("dd", gold.toString())

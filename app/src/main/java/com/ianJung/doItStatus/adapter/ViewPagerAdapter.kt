@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ianJung.doItStatus.ui.fragment.ShopFragment
-import com.ianJung.doItStatus.ui.fragment.DoneListFragment
+import com.ianJung.doItStatus.ui.fragment.StatFragment
 import com.ianJung.doItStatus.ui.fragment.TodoListFragment
 
 class ViewPagerAdapter (fragment : FragmentActivity) : FragmentStateAdapter(fragment){
@@ -14,7 +14,7 @@ class ViewPagerAdapter (fragment : FragmentActivity) : FragmentStateAdapter(frag
         return when (position) {
             0 -> TodoListFragment()
             1 -> ShopFragment()
-            else -> DoneListFragment()
+            else -> StatFragment()
         }
     }
 }

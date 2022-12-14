@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             when(position) {
                 0 -> tab.text = "TodoList"
                 1 -> tab.text = "Shop"
-                2 -> tab.text = "DoneList"
+                2 -> tab.text = "Stat"
             }
         }.attach()
     }

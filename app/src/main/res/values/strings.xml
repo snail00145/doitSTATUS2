@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Do It Status</string>
     <string name="date_format">%d/%d/%d</string>
+    <string name="stat_name">Name</string>
+    <string name="stat_level">Lv.</string>
+    <string name="stat_gold">Gold</string>
 </resources>
