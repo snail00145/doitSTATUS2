@@ -16,7 +16,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
         android:padding="10dp"
-        android:background="#7C7A9F"
+        android:background="#6FAECC"
         >
 
         <ImageView
@@ -53,7 +53,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_margin="5dp"
-                    android:text="@string/stat_name" />
+                    android:text=""
+                    android:hint="your name"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -80,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="999" />
+                        android:text="5" />
 
                 </LinearLayout>
 
@@ -91,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:progressTint="#2C489A" />
+                    android:progressTint="#3700B2" />
             </LinearLayout>
 
             <LinearLayout
@@ -114,7 +116,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_margin="5dp"
-                    android:text="@string/stat_gold" />
+                    android:text="40"
+                    android:hint="0"
+                    />
             </LinearLayout>
 
         </LinearLayout>
@@ -127,20 +131,29 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:scaleType="fitXY"
-            android:background="#6F6E83"
-            android:padding="50dp"
-            android:src="@drawable/gold_medal" />
+        <!--
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginBottom="30dp"
+        android:background="#6FAECC"
+    >
+-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/egg"
 
+        />
+
+
+        <!--
+</LinearLayout>
+-->
     </LinearLayout>
 
 </LinearLayout>
