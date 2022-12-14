@@ -25,7 +25,6 @@ class StatFragment : Fragment() {
         // Inflate the layout for this fragment
         // 뷰바인딩
         binding = FragmentStatBinding.inflate(inflater,container,false)
-
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
 

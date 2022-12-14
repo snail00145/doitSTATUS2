@@ -6,30 +6,36 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import com.ianJung.doItStatus.R
+import com.ianJung.doItStatus.databinding.LayoutBuydialogBinding
 
-class BuyDialog(context : Context, buyDialogInterface: BuyDialogInterface) : Dialog(context) {
+class BuyDialog: DialogFragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = LayoutBuydialogBinding.inflate(inflater, container, false)
+        val view = binding.root
+        dialog?.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
-    // 액티비티에서 인터페이스를 받아옴
-    private var buyDialogInterface: BuyDialogInterface = buyDialogInterface
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_buydialog)
-
-        var buyButton : Button = findViewById(R.id.buyButton)
-        var cancelButton : Button = findViewById(R.id.notBuyButton)
-
-        // 배경 투명하게 바꿔줌
-        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        buyButton.setOnClickListener {
-        dismiss()
+        binding.buyButton.setOnClickListener(){
+            Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
+        binding.notBuyButton.setOnClickListener(){
+            Toast.makeText(context, "물품 구입안함", Toast.LENGTH_SHORT).show()
+            dismiss()
         }
 
-        // 취소 버튼 클릭 시 종료
-        cancelButton.setOnClickListener { dismiss()}
+        return view
     }
+
+
 }

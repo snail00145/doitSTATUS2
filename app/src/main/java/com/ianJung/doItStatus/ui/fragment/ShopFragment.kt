@@ -48,12 +48,13 @@ class ShopFragment : Fragment() {
             binding!!.swipe.isRefreshing=false
         }
         binding!!.bubbleTea.setOnClickListener{
-            //val buyDialog = BuyDialog(activity!!, this)
-            Toast.makeText(context, "버블티클릭", Toast.LENGTH_SHORT).show()
-            }
+            val buyDialog = BuyDialog()
+            activity?.let { it1 -> buyDialog.show(it1.supportFragmentManager, "BuyDialog") }
+             }
 
         binding!!.onigiri.setOnClickListener{
-            Toast.makeText(context, "오니기리클릭", Toast.LENGTH_SHORT).show()
+            val buyDialog = BuyDialog()
+            activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
 
 
