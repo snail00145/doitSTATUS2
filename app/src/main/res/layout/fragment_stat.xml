@@ -46,7 +46,7 @@
                     android:gravity="center"
                     android:layout_margin="5dp"
                     android:text="@string/stat_name" />
-
+                <!--
                 <TextView
                     android:id="@+id/name_user"
                     android:layout_width="match_parent"
@@ -56,6 +56,14 @@
                     android:text=""
                     android:hint="your name"
                     />
+                -->
+                <Button
+                    android:id="@+id/nameUserBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@color/transparent"
+                    android:text="@string/stat_name" />
             </LinearLayout>
 
             <LinearLayout

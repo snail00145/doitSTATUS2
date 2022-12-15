@@ -8,12 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
+import com.ianJung.doItStatus.model.Memo
+import com.ianJung.doItStatus.ui.dialog.NameDialog
+import com.ianJung.doItStatus.ui.dialog.NameDialogInterface
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
+import java.util.*
 
 class StatFragment : Fragment() {
 
@@ -37,6 +42,11 @@ class StatFragment : Fragment() {
             intent.setType("image/*")
             startActivityForResult(intent, GALLERY)
         }
+
+        binding.nameUserBtn.setOnClickListener {
+            nameEdit()
+        }
+
         return binding!!.root
     }
 
@@ -57,5 +67,13 @@ class StatFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun nameEdit() {
+        val nameDialog = NameDialog(requireActivity(), this)
+        nameDialog.show()
+    }
+
+    fun onOkButtonClicked(content: String) {
+        binding.nameUserBtn.text = content
     }
 }

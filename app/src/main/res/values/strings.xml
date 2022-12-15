@@ -4,4 +4,5 @@
     <string name="stat_name">Name</string>
     <string name="stat_level">Lv.</string>
     <string name="stat_gold">Gold</string>
+    <string name="stat_usr_name">name</string>
 </resources>
