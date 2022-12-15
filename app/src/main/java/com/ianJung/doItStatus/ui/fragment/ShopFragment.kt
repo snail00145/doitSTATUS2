@@ -56,9 +56,6 @@ class ShopFragment : Fragment() {
             val buyDialog = BuyDialog()
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
-
-
-
     }
 
 

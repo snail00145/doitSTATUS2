@@ -15,6 +15,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
 import com.ianJung.doItStatus.model.Memo
+import com.ianJung.doItStatus.ui.dialog.BuyDialog
+import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialogInterface
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
@@ -34,15 +36,18 @@ class StatFragment : Fragment() {
         // Inflate the layout for this fragment
         // 뷰바인딩
         binding = FragmentStatBinding.inflate(inflater, container, false)
+        binding!!.goldUser.text = DoneDialog.gold.toString()
+        binding!!.expUser.text= DoneDialog.exp.toString()
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
-
+        
+        //사진 온클릭
         binding.profileImgUser.setOnClickListener {
             val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.setType("image/*")
             startActivityForResult(intent, GALLERY)
         }
-
+        //이름 온클릭
         binding.nameUserBtn.setOnClickListener {
             nameEdit()
         }
@@ -50,6 +55,7 @@ class StatFragment : Fragment() {
         return binding!!.root
     }
 
+    //사진 업로드
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) {
@@ -68,12 +74,24 @@ class StatFragment : Fragment() {
             }
         }
     }
+
+    //이름 수정 다이얼 로그
     private fun nameEdit() {
         val nameDialog = NameDialog(requireActivity(), this)
         nameDialog.show()
     }
 
+    //수정할 이름으로 값 변경
     fun onOkButtonClicked(content: String) {
         binding.nameUserBtn.text = content
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding!!.swipe1.setOnRefreshListener {
+            binding!!.goldUser.text = DoneDialog.gold.toString()
+            binding!!.expUser.text=DoneDialog.exp.toString()
+            binding!!.swipe1.isRefreshing=false
+        }
     }
 }
