@@ -58,6 +58,17 @@ class ShopFragment : Fragment() {
             buyDialog.setCost("오니기리",20)
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
+
+        binding!!.cake.setOnClickListener{
+            val buyDialog = BuyDialog()
+            activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
+        }
+
+        binding!!.pills.setOnClickListener{
+            val buyDialog = BuyDialog()
+            activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
+        }
+
     }
 
 
