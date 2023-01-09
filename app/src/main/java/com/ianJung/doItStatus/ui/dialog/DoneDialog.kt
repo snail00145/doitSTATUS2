@@ -17,8 +17,12 @@ import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentTodoListBinding
 import com.ianJung.doItStatus.databinding.TodoItemBinding
+import com.ianJung.doItStatus.model.Memo
 import com.ianJung.doItStatus.ui.fragment.TodoListFragment
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.prefs.PreferenceChangeEvent
 
 class DoneDialog(context : Context) : Dialog(context) {
@@ -26,6 +30,7 @@ class DoneDialog(context : Context) : Dialog(context) {
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var binding: TodoItemBinding
     private lateinit var binding2: FragmentShopBinding
+    private lateinit var memo : Memo
     companion object{
         var gold = 0
         var exp = 0
@@ -64,10 +69,16 @@ class DoneDialog(context : Context) : Dialog(context) {
             pref.edit().putInt("gold", gold).commit()
             pref.edit().putInt("exp", exp).commit()
             dismiss()
+            CoroutineScope(Dispatchers.IO).launch {
+                memoViewModel.deleteMemo(memo)
+            }
         }
 
         // 취소 버튼 클릭 시 종료
         cancelButton.setOnClickListener { dismiss()}
+    }
+    fun setMemo(memo : Memo){
+        this.memo = memo
     }
 
 

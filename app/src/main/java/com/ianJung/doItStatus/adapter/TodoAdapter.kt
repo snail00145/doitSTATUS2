@@ -1,6 +1,7 @@
 package com.ianJung.doItStatus.adapter
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,16 +26,19 @@ class TodoAdapter(private val memoViewModel: MemoViewModel) : RecyclerView.Adapt
             binding.memo = currentMemo
             this.memoViewModel = memoViewModel
 
+
             // 체크 리스너 초기화 해줘 중복 오류 방지
             binding.memoCheckBox.setOnCheckedChangeListener(null)
 
             // 메모 체크 시 체크 데이터 업데이트
             binding.memoCheckBox.setOnCheckedChangeListener { _, check ->
                 if (check) {
+                    Log.d("태그", "bind:true ")
                     memo = Memo(currentMemo.id, true, currentMemo.content,
                         currentMemo.year, currentMemo.month, currentMemo.day)
                     this.memoViewModel.updateMemo(memo)
                     val doneDialog = DoneDialog(binding.memoCheckBox.context)
+                    doneDialog.setMemo(currentMemo)
                     doneDialog.show()
                 }
                 else {
