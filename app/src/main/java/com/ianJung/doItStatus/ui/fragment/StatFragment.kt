@@ -8,23 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
-import com.ianJung.doItStatus.model.Memo
-import com.ianJung.doItStatus.ui.dialog.BuyDialog
 import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialog
-import com.ianJung.doItStatus.ui.dialog.NameDialogInterface
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 import java.util.*
 
 class StatFragment : Fragment() {
 
     lateinit var binding: FragmentStatBinding
+    private var level =1
+    private val exp= DoneDialog.exp.toString()
     private val memoViewModel: MemoViewModel by viewModels() // 뷰모델 연결
     private val adapter: TodoAdapter by lazy { TodoAdapter(memoViewModel) } // 어댑터 선언
     private val GALLERY = 1
@@ -37,7 +35,8 @@ class StatFragment : Fragment() {
         // 뷰바인딩
         binding = FragmentStatBinding.inflate(inflater, container, false)
         binding!!.goldUser.text = DoneDialog.gold.toString()
-        binding!!.expUser.text= DoneDialog.exp.toString()
+        binding!!.expUser.text = levelLogic(exp).toString()
+
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
         
@@ -53,6 +52,21 @@ class StatFragment : Fragment() {
         }
 
         return binding!!.root
+    }
+
+    private fun levelLogic(exp: String): Int {
+        var EXP = exp.toInt()
+        if(EXP<100)
+            level = 1
+        else if(EXP>=100 && EXP <=1000)
+            level = 2
+        else if(EXP>1000 && EXP <= 2000)
+            level = 3
+        else if (EXP>2000 && EXP <= 3000)
+            level = 4
+        return level
+
+
     }
 
     //사진 업로드
@@ -90,7 +104,7 @@ class StatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding!!.swipe1.setOnRefreshListener {
             binding!!.goldUser.text = DoneDialog.gold.toString()
-            binding!!.expUser.text=DoneDialog.exp.toString()
+            binding!!.expUser.text = levelLogic(exp).toString()
             binding!!.swipe1.isRefreshing=false
         }
     }

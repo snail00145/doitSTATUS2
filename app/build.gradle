@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.hanyeop.TodoneList"
+        applicationId "com.ianJung.doItStatus"
         minSdkVersion 23
         targetSdkVersion 33
         versionCode 1

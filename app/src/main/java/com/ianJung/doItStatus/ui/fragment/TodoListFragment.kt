@@ -1,5 +1,6 @@
 package com.ianJung.doItStatus.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 import com.ianJung.doItStatus.ui.dialog.MyCustomDialog
 import com.ianJung.doItStatus.ui.dialog.MyCustomDialogInterface
 import com.ianJung.doItStatus.adapter.TodoAdapter
@@ -28,6 +31,7 @@ class TodoListFragment : Fragment(), MyCustomDialogInterface {
 //        // 상단 메뉴 추가
 //        setHasOptionsMenu(true)
         // 뷰바인딩
+        context?.let { FirebaseApp.initializeApp(it) }
         binding = FragmentTodoListBinding.inflate(inflater,container,false)
 
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
@@ -36,7 +40,8 @@ class TodoListFragment : Fragment(), MyCustomDialogInterface {
         // 아이템을 가로로 하나씩 보여주고 어댑터 연결
         binding!!.todoRecyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         binding!!.todoRecyclerView.adapter = adapter
-
+        val db = FirebaseDatabase.getInstance().reference
+        db.push().setValue("123")
         // 리스트 관찰하여 변경시 어댑터에 전달해줌
         memoViewModel.readAllData.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
