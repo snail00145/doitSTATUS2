@@ -2,8 +2,10 @@ package com.ianJung.doItStatus.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.FirebaseDatabase
 import com.ianJung.doItStatus.adapter.ViewPagerAdapter
 import com.ianJung.doItStatus.databinding.ActivityMainBinding
 
@@ -17,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         // 뷰 바인딩
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val db = FirebaseDatabase.getInstance().reference
+        Log.d("태그", "onCreate:$db ")
+        db.push().setValue("123")
         // 탭 설정
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
