@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.adapter.TodoAdapter
+import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
 import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialog
@@ -58,12 +60,18 @@ class StatFragment : Fragment() {
         var EXP = exp.toInt()
         if(EXP<100)
             level = 1
-        else if(EXP>=100 && EXP <=1000)
+        if(EXP>=100 && EXP <=1000)
             level = 2
-        else if(EXP>1000 && EXP <= 2000)
+        if(EXP>1000 && EXP <= 2000)
             level = 3
-        else if (EXP>2000 && EXP <= 3000)
+        if (EXP>2000 && EXP <= 3000)
             level = 4
+
+        when(level){
+            2-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
+            3-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
+            4-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
+        }
         return level
 
 

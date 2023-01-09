@@ -56,6 +56,17 @@ class ShopFragment : Fragment() {
             val buyDialog = BuyDialog()
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
+
+        binding!!.cake.setOnClickListener{
+            val buyDialog = BuyDialog()
+            activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
+        }
+
+        binding!!.pills.setOnClickListener{
+            val buyDialog = BuyDialog()
+            activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
+        }
+
     }
 
 

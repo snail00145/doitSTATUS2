@@ -31,7 +31,6 @@ class TodoListFragment : Fragment(), MyCustomDialogInterface {
 //        // 상단 메뉴 추가
 //        setHasOptionsMenu(true)
         // 뷰바인딩
-        context?.let { FirebaseApp.initializeApp(it) }
         binding = FragmentTodoListBinding.inflate(inflater,container,false)
 
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
@@ -55,7 +54,7 @@ class TodoListFragment : Fragment(), MyCustomDialogInterface {
 
     // Fab 클릭시 사용되는 함수
     private fun onFabClicked(){
-        val myCustomDialog = MyCustomDialog(activity!!,this)
+        val myCustomDialog = MyCustomDialog(requireActivity(),this)
         myCustomDialog.show()
     }
 

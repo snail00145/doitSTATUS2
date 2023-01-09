@@ -70,7 +70,7 @@ class DoneDialog(context : Context) : Dialog(context) {
             pref.edit().putInt("exp", exp).commit()
             dismiss()
             CoroutineScope(Dispatchers.IO).launch {
-                memoViewModel.deleteMemo(memo)
+                memoViewModel.deleteMemo(memo)//완료시 삭제
             }
         }
 
