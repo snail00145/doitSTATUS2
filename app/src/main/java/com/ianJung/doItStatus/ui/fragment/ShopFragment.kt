@@ -49,11 +49,13 @@ class ShopFragment : Fragment() {
         }
         binding!!.bubbleTea.setOnClickListener{
             val buyDialog = BuyDialog()
+            buyDialog.setCost("버블티",10)
             activity?.let { it1 -> buyDialog.show(it1.supportFragmentManager, "BuyDialog") }
              }
 
         binding!!.onigiri.setOnClickListener{
             val buyDialog = BuyDialog()
+            buyDialog.setCost("오니기리",20)
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
     }
