@@ -16,6 +16,8 @@ import androidx.fragment.app.DialogFragment
 import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.databinding.LayoutBuydialogBinding
 import com.ianJung.doItStatus.model.PetItem
+import com.ianJung.doItStatus.sharedpre.App.Companion.gold
+import com.ianJung.doItStatus.sharedpre.App.Companion.prefs
 import com.ianJung.doItStatus.viewmodel.DBViewModel
 
 
@@ -39,10 +41,9 @@ class BuyDialog: DialogFragment() {
         binding.buyButton.setOnClickListener(){
             Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
             dbViewModel.saveItem(PetItem(name,cost.toFloat()))
-            val pref = context?.getSharedPreferences("pref", Context.MODE_PRIVATE)
-            DoneDialog.gold = pref!!.getInt("gold",0)
-            DoneDialog.gold -=cost
-            pref.edit().putInt("gold", DoneDialog.gold).commit()
+            gold = prefs!!.getGold()
+            gold -=cost
+            prefs.editor.putInt("gold", gold).commit()
             dismiss()
         }
         binding.notBuyButton.setOnClickListener(){

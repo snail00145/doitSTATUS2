@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.model.Memo
+import com.ianJung.doItStatus.sharedpre.App.Companion.exp
+import com.ianJung.doItStatus.sharedpre.MysharedPreferences
 import com.ianJung.doItStatus.singlebungle.Singleton
 import com.ianJung.doItStatus.ui.dialog.*
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
@@ -33,8 +35,8 @@ class ShopFragment : Fragment() {
     ): View? {
         // 뷰바인딩
         binding = FragmentShopBinding.inflate(inflater,container,false)
-        binding!!.Gold.text = DoneDialog.gold.toString()
-        binding!!.Exp.text=DoneDialog.exp.toString()
+        binding!!.Gold.text = context?.let { MysharedPreferences(it).getGold().toString() }
+        binding!!.Exp.text = context?.let { MysharedPreferences(it).getExp().toString() }
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
         return binding!!.root
@@ -43,8 +45,8 @@ class ShopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding!!.swipe.setOnRefreshListener {
-            binding!!.Gold.text = DoneDialog.gold.toString()
-            binding!!.Exp.text=DoneDialog.exp.toString()
+            binding!!.Gold.text = context?.let { MysharedPreferences(it).getGold().toString() }
+            binding!!.Exp.text = context?.let { MysharedPreferences(it).getExp().toString() }
             binding!!.swipe.isRefreshing=false
         }
         binding!!.bubbleTea.setOnClickListener{

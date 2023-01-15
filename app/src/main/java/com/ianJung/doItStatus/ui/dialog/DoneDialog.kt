@@ -18,6 +18,9 @@ import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentTodoListBinding
 import com.ianJung.doItStatus.databinding.TodoItemBinding
 import com.ianJung.doItStatus.model.Memo
+import com.ianJung.doItStatus.sharedpre.App.Companion.exp
+import com.ianJung.doItStatus.sharedpre.App.Companion.gold
+import com.ianJung.doItStatus.sharedpre.App.Companion.prefs
 import com.ianJung.doItStatus.ui.fragment.TodoListFragment
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -31,10 +34,7 @@ class DoneDialog(context : Context) : Dialog(context) {
     private lateinit var binding: TodoItemBinding
     private lateinit var binding2: FragmentShopBinding
     private lateinit var memo : Memo
-    companion object{
-        var gold = 0
-        var exp = 0
-    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +45,6 @@ class DoneDialog(context : Context) : Dialog(context) {
         binding2=FragmentShopBinding.inflate(layoutInflater)
         setContentView(R.layout.layout_donedialog)
 
-        val pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-        gold = pref.getInt("gold",0)
-        exp = pref.getInt("exp", 0)
         binding2.Gold.setText(gold.toString())
         binding2.Exp.setText(exp.toString())
 
@@ -64,10 +61,9 @@ class DoneDialog(context : Context) : Dialog(context) {
             exp+=100
             binding2.Gold.setText(gold.toString())
             binding2.Exp.setText(exp.toString())
-            Log.d("dd", gold.toString())
             Toast.makeText(context, "Gold = ${gold}, Exp = ${exp}", Toast.LENGTH_SHORT).show()
-            pref.edit().putInt("gold", gold).commit()
-            pref.edit().putInt("exp", exp).commit()
+            prefs.editor.putInt("gold", gold).commit()
+            prefs.editor.putInt("exp", exp).commit()
             dismiss()
             CoroutineScope(Dispatchers.IO).launch {
                 memoViewModel.deleteMemo(memo)//완료시 삭제

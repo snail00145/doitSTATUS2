@@ -15,6 +15,7 @@ import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
+import com.ianJung.doItStatus.sharedpre.MysharedPreferences
 import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialog
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
@@ -24,7 +25,7 @@ class StatFragment : Fragment() {
 
     lateinit var binding: FragmentStatBinding
     private var level =1
-    private val exp= DoneDialog.exp.toString()
+    private val exp= context?.let { MysharedPreferences(it).getExp().toString() }
     private val memoViewModel: MemoViewModel by viewModels() // 뷰모델 연결
     private val adapter: TodoAdapter by lazy { TodoAdapter(memoViewModel) } // 어댑터 선언
     private val GALLERY = 1
@@ -36,8 +37,8 @@ class StatFragment : Fragment() {
         // Inflate the layout for this fragment
         // 뷰바인딩
         binding = FragmentStatBinding.inflate(inflater, container, false)
-        binding!!.goldUser.text = DoneDialog.gold.toString()
-        binding!!.expUser.text = levelLogic(exp).toString()
+        binding!!.goldUser.text = context?.let { MysharedPreferences(it).getGold().toString() }
+        binding!!.expUser.text = exp?.let { levelLogic(it).toString() }
 
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
@@ -68,9 +69,9 @@ class StatFragment : Fragment() {
             level = 4
 
         when(level){
-            2-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
-            3-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
-            4-> binding!!.imageView2.setImageResource(R.drawable.gold_medal)//수정
+            2-> binding!!.imageView2.setImageResource(R.drawable.lev2cat)
+            3-> binding!!.imageView2.setImageResource(R.drawable.lev3cat)
+            4-> binding!!.imageView2.setImageResource(R.drawable.lev3cat)//수정
         }
         return level
 
@@ -111,8 +112,8 @@ class StatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding!!.swipe1.setOnRefreshListener {
-            binding!!.goldUser.text = DoneDialog.gold.toString()
-            binding!!.expUser.text = levelLogic(exp).toString()
+            binding!!.goldUser.text =  context?.let { MysharedPreferences(it).getGold().toString() }
+            binding!!.expUser.text = exp?.let { levelLogic(it).toString() }
             binding!!.swipe1.isRefreshing=false
         }
     }
