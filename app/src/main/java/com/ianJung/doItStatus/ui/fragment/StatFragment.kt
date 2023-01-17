@@ -19,6 +19,7 @@ import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
 import com.ianJung.doItStatus.sharedpre.MysharedPreferences
 import com.ianJung.doItStatus.ui.dialog.DoneDialog
+import com.ianJung.doItStatus.ui.dialog.GiveDialog
 import com.ianJung.doItStatus.ui.dialog.NameDialog
 import com.ianJung.doItStatus.viewmodel.MemoViewModel
 import java.util.*
@@ -60,8 +61,14 @@ class StatFragment : Fragment() {
             nameEdit()
         }
 
+        binding.imageView2.setOnClickListener(){
+            val giveDialog = GiveDialog()
+            activity?.let { it2 -> giveDialog.show(it2.supportFragmentManager, "GiveDialog") }
+        }
+
         return binding!!.root
     }
+
 
     private fun levelLogic(exp: String): Int {
         var EXP = exp.toInt()

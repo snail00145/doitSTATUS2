@@ -57,17 +57,19 @@ class ShopFragment : Fragment() {
 
         binding!!.onigiri.setOnClickListener{
             val buyDialog = BuyDialog()
-            buyDialog.setCost("오니기리",20)
+            buyDialog.setCost("주먹밥",20)
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
 
         binding!!.cake.setOnClickListener{
             val buyDialog = BuyDialog()
+            buyDialog.setCost("케이크",30)
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
 
         binding!!.pills.setOnClickListener{
             val buyDialog = BuyDialog()
+            buyDialog.setCost("알약",20)
             activity?.let { it2 -> buyDialog.show(it2.supportFragmentManager, "BuyDialog") }
         }
 
