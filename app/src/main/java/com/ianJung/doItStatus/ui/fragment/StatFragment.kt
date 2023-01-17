@@ -1,9 +1,11 @@
 package com.ianJung.doItStatus.ui.fragment
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +27,9 @@ class StatFragment : Fragment() {
 
     lateinit var binding: FragmentStatBinding
     private var level =1
-    private val exp= context?.let { MysharedPreferences(it).getExp().toString() }
+    //private val exp= context?.let { MysharedPreferences(it).getExp().toString() }
+    //32번 라인을 실행하고 43번 라인 로그를 확인하면 exp값이 99에요 이말은 32번 라인 실행할땐 context가 null이라서 exp를 읽어오지 못해요.
+    private val exp = if(context!=null) MysharedPreferences(requireContext()).getExp().toString() else "99"
     private val memoViewModel: MemoViewModel by viewModels() // 뷰모델 연결
     private val adapter: TodoAdapter by lazy { TodoAdapter(memoViewModel) } // 어댑터 선언
     private val GALLERY = 1
@@ -36,13 +40,15 @@ class StatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         // 뷰바인딩
+        Log.d("태그", "onCreateView: $exp")
         binding = FragmentStatBinding.inflate(inflater, container, false)
         binding!!.goldUser.text = context?.let { MysharedPreferences(it).getGold().toString() }
-        binding!!.expUser.text = exp?.let { levelLogic(it).toString() }
+        //그래서 처음 초기화는 47번 라인으로 진행했고
+        binding!!.expUser.text = context?.let { levelLogic(MysharedPreferences(it).getExp().toString()).toString() }
 
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
-        
+
         //사진 온클릭
         binding.profileImgUser.setOnClickListener {
             val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -113,8 +119,15 @@ class StatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding!!.swipe1.setOnRefreshListener {
             binding!!.goldUser.text =  context?.let { MysharedPreferences(it).getGold().toString() }
-            binding!!.expUser.text = exp?.let { levelLogic(it).toString() }
+            //124번 라인도 새로고침 하면 새롭게 exp를 얻어와야되는데 그냥 처음 얻어둔 문자열로 처리하니까 바뀌지 않아요
+            //이건 안고친거라 혼자서 고쳐보세요
+            binding!!.expUser.text = context?.let { levelLogic(MysharedPreferences(it).getExp().toString()).toString() }
+
             binding!!.swipe1.isRefreshing=false
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 }
