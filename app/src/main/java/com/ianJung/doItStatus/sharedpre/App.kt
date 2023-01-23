@@ -8,6 +8,7 @@ class App :Application() {
         lateinit var prefs : MysharedPreferences
         var gold = 0
         var exp = 0
+        var petexp = 0
 
     }
 

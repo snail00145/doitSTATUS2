@@ -16,4 +16,8 @@ class MysharedPreferences(context: Context) {
         return prefs.getInt("exp", 0)
     }
 
+    fun getPetExp() : Int{
+        return prefs.getInt("petExp", 0)
+    }
+
 }
