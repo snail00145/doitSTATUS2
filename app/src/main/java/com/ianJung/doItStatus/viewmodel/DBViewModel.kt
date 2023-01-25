@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
 
 class DBViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val db : DatabaseReference = FirebaseDatabase.getInstance().reference
+    val db : FirebaseDatabase = FirebaseDatabase.getInstance()
+    val Ref : DatabaseReference = db.getReference("MyItem")
 
     fun saveItem(item : PetItem){
         viewModelScope.launch(Dispatchers.IO) {
-            db.child("MyItem").push().setValue(item)
+            Ref.setValue(item)
         }
     }
 }

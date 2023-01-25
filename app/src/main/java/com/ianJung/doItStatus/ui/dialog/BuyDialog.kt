@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.databinding.LayoutBuydialogBinding
 import com.ianJung.doItStatus.model.PetItem
@@ -27,6 +29,9 @@ class BuyDialog: DialogFragment() {
 
     private var cost : Int = 0
     private var name : String = "익명"
+    val db : FirebaseDatabase = FirebaseDatabase.getInstance()
+    val Ref : DatabaseReference = db.getReference("MyItem")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +39,6 @@ class BuyDialog: DialogFragment() {
     ): View? {
         val binding = LayoutBuydialogBinding.inflate(inflater, container, false)
         val view = binding.root
-        dbViewModel = DBViewModel(Application())
         binding.buyTextview.text = "${name}의 가격은 ${cost}입니다.\n구매하시겠습니까?"
         dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -46,7 +50,7 @@ class BuyDialog: DialogFragment() {
             }
             else {
                 Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
-                dbViewModel.saveItem(PetItem(name, cost.toFloat()))
+                Ref.setValue(name, cost)
                 gold -= cost
                 prefs.editor.putInt("gold", gold).commit()
                 dismiss()
