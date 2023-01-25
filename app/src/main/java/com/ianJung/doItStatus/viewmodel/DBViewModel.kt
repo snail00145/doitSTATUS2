@@ -18,5 +18,4 @@ class DBViewModel(application: Application) : AndroidViewModel(application) {
             db.child("MyItem").push().setValue(item)
         }
     }
-
 }

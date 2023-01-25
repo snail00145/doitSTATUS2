@@ -39,12 +39,18 @@ class BuyDialog: DialogFragment() {
         dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.buyButton.setOnClickListener(){
-            Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
-            dbViewModel.saveItem(PetItem(name,cost.toFloat()))
             gold = prefs!!.getGold()
-            gold -=cost
-            prefs.editor.putInt("gold", gold).commit()
-            dismiss()
+            if(gold<cost){
+                dismiss()
+                Toast.makeText(context, "구입불가", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
+                dbViewModel.saveItem(PetItem(name, cost.toFloat()))
+                gold -= cost
+                prefs.editor.putInt("gold", gold).commit()
+                dismiss()
+            }
         }
         binding.notBuyButton.setOnClickListener(){
             Toast.makeText(context, "물품 구입안함", Toast.LENGTH_SHORT).show()
