@@ -1,3 +1,12 @@
 package com.ianJung.doItStatus.model
 
-data class PetItem(val itemName : String,val itemExp : Float)
+
+class PetItem{
+    var itemName : String = ""
+    var itemExp : Float = 0F
+
+    constructor(itemName : String, itemExp : Float){
+        this.itemName = itemName
+        this.itemExp = itemExp
+    }
+}
