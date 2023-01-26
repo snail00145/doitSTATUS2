@@ -16,7 +16,7 @@ class DBViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveItem(item : PetItem){
         viewModelScope.launch(Dispatchers.IO) {
-            Ref.setValue(item)
+            Ref.push().setValue(item)
         }
     }
 }
