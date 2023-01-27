@@ -1,10 +1,10 @@
 package com.ianJung.doItStatus.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.ianJung.doItStatus.model.PetItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +17,10 @@ class DBViewModel(application: Application) : AndroidViewModel(application) {
     fun saveItem(item : PetItem){
         viewModelScope.launch(Dispatchers.IO) {
             Ref.push().setValue(item)
+
         }
     }
+
+
+
 }

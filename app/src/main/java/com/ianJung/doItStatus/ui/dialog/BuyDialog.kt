@@ -7,12 +7,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.database.*
 import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.databinding.LayoutBuydialogBinding
 import com.ianJung.doItStatus.model.PetItem
@@ -45,13 +47,16 @@ class BuyDialog: DialogFragment() {
                 dismiss()
                 Toast.makeText(context, "구입불가", Toast.LENGTH_SHORT).show()
             }
+
             else {
                 Toast.makeText(context, "물품 구입", Toast.LENGTH_SHORT).show()
-                dbViewModel.saveItem(PetItem(name, cost.toFloat()))
+                addItem(name)
+                Log.d("태그", name)
                 gold -= cost
                 prefs.editor.putInt("gold", gold).commit()
                 dismiss()
             }
+
         }
         binding.notBuyButton.setOnClickListener(){
             Toast.makeText(context, "물품 구입안함", Toast.LENGTH_SHORT).show()
@@ -59,6 +64,38 @@ class BuyDialog: DialogFragment() {
         }
         return view
     }
+
+    fun addItem(path: String) {
+
+        val db : FirebaseDatabase = FirebaseDatabase.getInstance()
+        db.reference.child(path).runTransaction(object : Transaction.Handler{
+
+            override fun doTransaction(currentData: MutableData): Transaction.Result {
+                if (currentData.value != null) {
+                    var count = currentData.value.toString().toInt()
+                    count += 1
+                    Log.d("태그", "doTransaction: $count")
+                    currentData.value = count
+
+                }
+                else{
+                    var count =1
+                    currentData.value = count
+                }
+                return Transaction.success(currentData)
+            }
+
+            override fun onComplete(
+                error: DatabaseError?,
+                committed: Boolean,
+                currentData: DataSnapshot?
+            ) {
+
+            }
+
+        })
+    }
+
     fun setCost(name : String,cost : Int){
         this.cost = cost
         this.name = name

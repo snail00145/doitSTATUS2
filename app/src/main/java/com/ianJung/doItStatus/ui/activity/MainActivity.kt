@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
         // 뷰 바인딩
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val db = FirebaseDatabase.getInstance().reference
-        Log.d("태그", "onCreate:$db ")
-        db.push().setValue("123")
         // 탭 설정
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
