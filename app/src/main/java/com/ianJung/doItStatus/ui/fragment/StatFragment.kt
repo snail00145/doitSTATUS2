@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,6 +18,8 @@ import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.adapter.TodoAdapter
 import com.ianJung.doItStatus.databinding.FragmentShopBinding
 import com.ianJung.doItStatus.databinding.FragmentStatBinding
+import com.ianJung.doItStatus.sharedpre.App
+import com.ianJung.doItStatus.sharedpre.App.Companion.petexp
 import com.ianJung.doItStatus.sharedpre.MysharedPreferences
 import com.ianJung.doItStatus.ui.dialog.DoneDialog
 import com.ianJung.doItStatus.ui.dialog.GiveDialog
@@ -46,7 +49,6 @@ class StatFragment : Fragment() {
         binding!!.goldUser.text = context?.let { MysharedPreferences(it).getGold().toString() }
         //그래서 처음 초기화는 47번 라인으로 진행했고
         binding!!.expUser.text = context?.let { levelLogic(MysharedPreferences(it).getExp().toString()).toString() }
-
         // 아이템에 아이디를 설정해줌 (깜빡이는 현상방지)
         adapter.setHasStableIds(true)
 
@@ -64,6 +66,7 @@ class StatFragment : Fragment() {
         binding.imageView2.setOnClickListener(){
             val giveDialog = GiveDialog()
             activity?.let { it2 -> giveDialog.show(it2.supportFragmentManager, "GiveDialog") }
+            Toast.makeText(context, context?.let { MysharedPreferences(it).getPetExp().toString() } , Toast.LENGTH_SHORT).show()
         }
 
         return binding!!.root
@@ -81,14 +84,27 @@ class StatFragment : Fragment() {
         if (EXP>2000 && EXP <= 3000)
             level = 4
 
-        when(level){
-            2-> binding!!.imageView2.setImageResource(R.drawable.lev2cat)
-            3-> binding!!.imageView2.setImageResource(R.drawable.lev3cat)
-            4-> binding!!.imageView2.setImageResource(R.drawable.lev3cat)//수정
-        }
         return level
 
+    }
 
+    private fun petlevelLogic(exp:String):Int{
+        var EXP = exp.toInt()
+        if(EXP<100)
+            level = 1
+        if(EXP>=100 && EXP <=1000)
+            level = 2
+        if(EXP>1000 && EXP <= 2000)
+            level = 3
+        if (EXP>2000 && EXP <= 3000)
+            level = 4
+
+        return when(level){
+            1-> return R.drawable.egg
+            2-> return R.drawable.lev2cat
+            3-> return R.drawable.lev3cat
+            else -> {return R.drawable.egg}
+        }
     }
 
     //사진 업로드
@@ -129,6 +145,8 @@ class StatFragment : Fragment() {
             //124번 라인도 새로고침 하면 새롭게 exp를 얻어와야되는데 그냥 처음 얻어둔 문자열로 처리하니까 바뀌지 않아요
             //이건 안고친거라 혼자서 고쳐보세요
             binding!!.expUser.text = context?.let { levelLogic(MysharedPreferences(it).getExp().toString()).toString() }
+            context?.let { petlevelLogic(MysharedPreferences(it).getPetExp().toString()) }
+                ?.let { binding!!.imageView2.setImageResource(it) }
 
             binding!!.swipe1.isRefreshing=false
         }

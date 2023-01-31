@@ -17,8 +17,8 @@ import androidx.fragment.app.DialogFragment
 import com.google.firebase.database.*
 import com.ianJung.doItStatus.R
 import com.ianJung.doItStatus.databinding.LayoutGivedialogBinding
-import com.ianJung.doItStatus.sharedpre.App.Companion.gold
 import com.ianJung.doItStatus.sharedpre.App.Companion.petexp
+import com.ianJung.doItStatus.sharedpre.App.Companion.prefs
 import com.ianJung.doItStatus.viewmodel.DBViewModel
 
 
@@ -42,8 +42,9 @@ class GiveDialog: DialogFragment() {
                 var getBubble  = snapshot.child("버블티")
                 if (getBubble.exists()){
                     if(getBubble.value.toString().toInt()>0){
-                        petexp += 100
-                        Toast.makeText(context, "펫 경험치 100 증가", Toast.LENGTH_SHORT).show()
+                        petexp = prefs.getPetExp() + 100
+                        prefs.editor.putInt("petExp", petexp).commit()
+                        Toast.makeText(context, "펫 경험치 : ${prefs.getPetExp()}", Toast.LENGTH_SHORT).show()
                         db.reference.child("버블티").runTransaction(object : Transaction.Handler{
 
                             override fun doTransaction(currentData: MutableData): Transaction.Result {
@@ -95,8 +96,9 @@ class GiveDialog: DialogFragment() {
                     var getOnigiri  = snapshot.child("주먹밥")
                     if (getOnigiri.exists()){
                         if(getOnigiri.value.toString().toInt()>0){
-                            petexp += 200
-                            Toast.makeText(context, "펫 경험치 200 증가", Toast.LENGTH_SHORT).show()
+                            petexp = prefs.getPetExp() + 200
+                            prefs.editor.putInt("petExp", petexp).commit()
+                            Toast.makeText(context, "펫 경험치 : ${prefs.getPetExp()}", Toast.LENGTH_SHORT).show()
                             db.reference.child("주먹밥").runTransaction(object : Transaction.Handler{
 
                                 override fun doTransaction(currentData: MutableData): Transaction.Result {
@@ -148,8 +150,9 @@ class GiveDialog: DialogFragment() {
                     var getCake  = snapshot.child("케이크")
                     if (getCake.exists()){
                         if(getCake.value.toString().toInt()>0){
-                            petexp += 300
-                            Toast.makeText(context, "펫 경험치 300 증가", Toast.LENGTH_SHORT).show()
+                            petexp = prefs.getPetExp() + 300
+                            prefs.editor.putInt("petExp", petexp).commit()
+                            Toast.makeText(context, "펫 경험치 : ${prefs.getPetExp()}", Toast.LENGTH_SHORT).show()
                             db.reference.child("케이크").runTransaction(object : Transaction.Handler{
 
                                 override fun doTransaction(currentData: MutableData): Transaction.Result {
