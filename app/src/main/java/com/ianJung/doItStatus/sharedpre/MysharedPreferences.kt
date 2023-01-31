@@ -20,4 +20,8 @@ class MysharedPreferences(context: Context) {
         return prefs.getInt("petExp", 0)
     }
 
+    fun getLastTime() : Long {
+        return  prefs.getLong("lastTime", 0)
+    }
+
 }
